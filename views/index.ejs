@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+</head>
+<body>
+    <div class="container">
+    <h1>Todo List</h1>
+    <form action="/submit" method="POST"> 
+        <input autocomplete="off" type="text" name="name" placeholder="Add a task">
+
+        <button class="add" type="submit">Add</button>
+    </form>
+    <ul>
+               
+        <% for(let i=0; i<name.length; i++) { %>    
+            <li id="name<%= i %>" class="task-item" onclick="toggleDone('<%=i%>')">
+                <%= name[i] %>
+                <form action="/removeTask" method="POST" style="display:inline;">
+                    <input type="hidden" autocomplete="off" name="index" value="<%= i %>" >
+                    <button class="remove-button" type="submit">Remove</button>
+                </form>
+            </li>
+        <% } %>
+    </ul>
+    <div class="">
+
+    <form action="/clearAllTasks" method="POST">
+        <%if(name.length){%>
+            <span class="pending-num"
+          >You have <span> <%= name.length %></span> tasks pending.</span
+        >
+        <%}else{%> 
+            <span  class="pending-num"
+          >You have <span > no </span> tasks pending.</span
+        >
+        <%}%>
+        <button type="submit" class="clear-button">Clear All</button>
+    </form></div>
+</div>
+<script>
+
+    function toggleDone(index) {
+        const taskElement = document.querySelector(`#name${index}`);
+        taskElement.classList.toggle('done');
+    }
+</script>
+</body>
+</html>
